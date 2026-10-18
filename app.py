@@ -25,15 +25,15 @@ CSS = """
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap');
 html, body, [class*="css"], .stApp { font-family: 'Nunito', 'Segoe UI', sans-serif; }
 
-/* CORREÇÃO 1: Adicionado '!important' e espaço seguro para o topo não cortar no Streamlit Cloud */
-.block-container { padding-top: 2rem !important; max-width: 1250px; }
+/* Aumenta o espaço superior para o banner descer e não encostar/cortar na barra do Streamlit */
+.block-container { padding-top: 3.5rem !important; max-width: 1250px; }
 
 #MainMenu, footer { visibility: hidden; }
 
 [data-testid="stSidebar"] { background: linear-gradient(185deg, #063B57 0%, #0E7FA8 100%); }
 [data-testid="stSidebar"] * { color: #fff !important; }
 
-/* CORREÇÃO 2: Seletores refinados para garantir o formato de pílula perfeito no menu lateral */
+/* Estilização dos itens do menu lateral em formato de pílula */
 [data-testid="stSidebar"] div[role="radiogroup"] > label { 
     padding: .55rem .8rem; 
     border-radius: 10px; 
@@ -42,7 +42,11 @@ html, body, [class*="css"], .stApp { font-family: 'Nunito', 'Segoe UI', sans-ser
     cursor: pointer;
 }
 [data-testid="stSidebar"] div[role="radiogroup"] > label:hover { background: rgba(255,255,255,.15); }
-[data-testid="stSidebar"] div[role="radiogroup"] label > div:first-child { display: none !important; }
+
+/* Oculta completamente as bolinhas nativas do st.radio */
+[data-testid="stSidebar"] div[role="radiogroup"] input[type="radio"] { display: none !important; }
+[data-testid="stSidebar"] div[role="radiogroup"] label div:first-child { display: none !important; }
+
 [data-testid="stSidebar"] div[role="radiogroup"] label:has(input:checked) { background: rgba(255,255,255,.24); font-weight: 800; }
 
 .marca { display:flex; gap:.7rem; align-items:center; padding:.4rem .4rem 1.2rem; }
@@ -56,7 +60,7 @@ html, body, [class*="css"], .stApp { font-family: 'Nunito', 'Segoe UI', sans-ser
 .titulo h2 { margin:.2rem 0 0; font-weight:800; color:#063B57; padding:0; }
 .titulo p { margin:0 0 .8rem; color:#5A7A8C; }
 
-.card { background:#fff; border-radius:16px; padding:1rem 1.2rem; border:1px solid #DDEBF2; border-left:6px solid #0E7FA8; margin-bottom:.6rem; }
+.card { background:#fff; border-radius:16px; padding:1.2rem 1.2rem; border:1px solid #DDEBF2; border-left:6px solid #0E7FA8; margin-bottom:.6rem; }
 .card .r { color:#5A7A8C; font-size:.85rem; font-weight:600; }
 .card .v { color:#063B57; font-size:1.7rem; font-weight:800; line-height:1.2; }
 .card .s { color:#5A7A8C; font-size:.8rem; }
@@ -78,7 +82,6 @@ div[data-baseweb="input"], div[data-baseweb="select"] > div, div[data-baseweb="t
 div[data-baseweb="input"] input, div[data-baseweb="textarea"] textarea { background:transparent !important; }
 </style>
 """
-
 
 # ---------- componentes visuais ----------
 def card(rotulo, valor, sub="", cor=""):

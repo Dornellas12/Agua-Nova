@@ -84,46 +84,42 @@ CSS = """
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap');
 html, body, [class*="css"], .stApp { font-family: 'Nunito', 'Segoe UI', sans-serif; }
 
-/* Espaço superior para o banner não ser cortado na nuvem */
+/* Espaço superior do banner na nuvem */
 .block-container { padding-top: 3.5rem !important; max-width: 1250px; }
-
 #MainMenu, footer { visibility: hidden; }
 
+/* Estilo da barra lateral */
 [data-testid="stSidebar"] { background: linear-gradient(185deg, #063B57 0%, #0E7FA8 100%); }
 [data-testid="stSidebar"] * { color: #fff !important; }
 
-/* 1. Oculta de forma agressiva as bolinhas brancas dos radio buttons na sidebar */
-[data-testid="stSidebar"] div[role="radiogroup"] label > div:first-child,
-[data-testid="stSidebar"] div[data-baseweb="radio"] > div:first-child,
-[data-testid="stSidebar"] input[type="radio"] {
+/* 1. REMOVE AS BOLINHAS DO RADIO DE FORMA LIMPA (sem afetar ícones) */
+[data-testid="stSidebar"] div[role="radiogroup"] label div:has(input[type="radio"]) {
     display: none !important;
-    width: 0 !important;
-    height: 0 !important;
-    opacity: 0 !important;
-    visibility: hidden !important;
+}
+[data-testid="stSidebar"] div[role="radiogroup"] input[type="radio"] {
+    display: none !important;
 }
 
-/* 2. Formatação em pílula dos botões laterais com o texto bem destacado */
+/* Formato de pílula para os itens do menu lateral */
 [data-testid="stSidebar"] div[role="radiogroup"] label {
-    padding: .65rem .9rem !important;
+    padding: 0.55rem 0.8rem !important;
     border-radius: 10px !important;
     width: 100% !important;
-    transition: background .15s !important;
     cursor: pointer !important;
+    transition: background 0.15s ease;
 }
-
 [data-testid="stSidebar"] div[role="radiogroup"] label:hover {
-    background: rgba(255,255,255,.15) !important;
+    background: rgba(255,255,255,0.15) !important;
 }
-
 [data-testid="stSidebar"] div[role="radiogroup"] label:has(input:checked) {
-    background: rgba(255,255,255,.24) !important;
+    background: rgba(255,255,255,0.24) !important;
+    font-weight: 700 !important;
 }
 
-/* 3. Aumento e destaque das palavras do topo da marca (Água Nova / Distribuidora) */
-.marca { display:flex; gap:.7rem; align-items:center; padding:.4rem .4rem 1.2rem; }
-.marca b { font-size:1.4rem; line-height:1.1; font-weight:800; }
-.marca small { font-size:0.95rem !important; opacity:.95 !important; font-weight:600; }
+/* 2. AUMENTA LEVEMENTE APENAS A PALAVRA "DISTRIBUIDORA" NA MARCA */
+.marca { display: flex; gap: 0.7rem; align-items: center; padding: 0.4rem 0.4rem 1.2rem; }
+.marca b { font-size: 1.25rem; font-weight: 800; }
+.marca small { font-size: 0.9rem !important; opacity: 0.95 !important; font-weight: 600; }
 
 .hero { background: linear-gradient(110deg, #063B57 0%, #0E7FA8 60%, #3FC1D9 100%); color:#fff; border-radius:18px;
         padding:1.2rem 1.6rem; display:flex; align-items:center; gap:1rem; margin-bottom:1.2rem; }

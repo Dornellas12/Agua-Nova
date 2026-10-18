@@ -92,13 +92,19 @@ html, body, [class*="css"], .stApp { font-family: 'Nunito', 'Segoe UI', sans-ser
 [data-testid="stSidebar"] { background: linear-gradient(185deg, #063B57 0%, #0E7FA8 100%); }
 [data-testid="stSidebar"] * { color: #fff !important; }
 
-/* 1. Esconde as bolinhas do radio na barra lateral de forma definitiva */
-[data-testid="stSidebar"] [data-testid="stRadio"] div[role="radiogroup"] label > div:first-child {
+/* 1. Oculta de forma agressiva as bolinhas brancas dos radio buttons na sidebar */
+[data-testid="stSidebar"] div[role="radiogroup"] label > div:first-child,
+[data-testid="stSidebar"] div[data-baseweb="radio"] > div:first-child,
+[data-testid="stSidebar"] input[type="radio"] {
     display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
 }
 
-/* 2. Formatação em pílula dos botões laterais */
-[data-testid="stSidebar"] [data-testid="stRadio"] div[role="radiogroup"] label {
+/* 2. Formatação em pílula dos botões laterais com o texto bem destacado */
+[data-testid="stSidebar"] div[role="radiogroup"] label {
     padding: .65rem .9rem !important;
     border-radius: 10px !important;
     width: 100% !important;
@@ -106,20 +112,18 @@ html, body, [class*="css"], .stApp { font-family: 'Nunito', 'Segoe UI', sans-ser
     cursor: pointer !important;
 }
 
-[data-testid="stSidebar"] [data-testid="stRadio"] div[role="radiogroup"] label:hover {
+[data-testid="stSidebar"] div[role="radiogroup"] label:hover {
     background: rgba(255,255,255,.15) !important;
 }
 
-/* 3. Aumenta o tamanho da fonte e o destaque do texto no menu */
-[data-testid="stSidebar"] [data-testid="stRadio"] div[role="radiogroup"] label [data-testid="stMarkdownContainer"] p {
-    font-size: 1.15rem !important;
-    font-weight: 700 !important;
-    margin: 0 !important;
+[data-testid="stSidebar"] div[role="radiogroup"] label:has(input:checked) {
+    background: rgba(255,255,255,.24) !important;
 }
 
+/* 3. Aumento e destaque das palavras do topo da marca (Água Nova / Distribuidora) */
 .marca { display:flex; gap:.7rem; align-items:center; padding:.4rem .4rem 1.2rem; }
-.marca b { font-size:1.25rem; line-height:1.1; font-weight:800; }
-.marca small { opacity:.8; }
+.marca b { font-size:1.4rem; line-height:1.1; font-weight:800; }
+.marca small { font-size:0.95rem !important; opacity:.95 !important; font-weight:600; }
 
 .hero { background: linear-gradient(110deg, #063B57 0%, #0E7FA8 60%, #3FC1D9 100%); color:#fff; border-radius:18px;
         padding:1.2rem 1.6rem; display:flex; align-items:center; gap:1rem; margin-bottom:1.2rem; }

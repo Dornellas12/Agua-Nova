@@ -14,6 +14,65 @@ import banco
 import regras
 from regras import brl
 
+import streamlit as st
+
+# 1. Dicionário com as credenciais (Usuário: Senha)
+USUARIOS = {
+    "admin": "agua2026",      # Altere para o usuário e senha de sua preferência
+    "brunno": "senha123"
+}
+
+# 2. Inicializa o estado de autenticação na sessão
+if "autenticado" not in st.session_state:
+    st.session_state["autenticado"] = False
+
+# 3. Função para validar o login
+def realizar_login():
+    usuario_input = st.session_state.get("campo_usuario", "").strip()
+    senha_input = st.session_state.get("campo_senha", "").strip()
+    
+    if usuario_input in USUARIOS and USUARIOS[usuario_input] == senha_input:
+        st.session_state["autenticado"] = True
+        st.session_state["usuario_logado"] = usuario_input
+        st.rerun()
+    else:
+        st.error("Usuário ou senha incorretos.")
+
+# 4. Tela de Login (exibida apenas se NÃO estiver autenticado)
+if not st.session_state["autenticado"]:
+    # Centraliza o formulário de login na tela
+    col1, col2, col3 = st.columns([1, 2, 1])
+    
+    with col2:
+        st.markdown("""
+        <div style="text-align: center; padding: 2rem 0 1rem;">
+            <h2 style="color: #063B57; font-weight: 800; margin-bottom: 0.2rem;">💧 Água Nova</h2>
+            <p style="color: #5A7A8C;">Acesso Restrito ao Sistema</p>
+        </div>
+        """, unsafe_allow_html=True)
+        
+        with st.form("form_login"):
+            st.text_input("Usuário", key="campo_usuario", placeholder="Digite seu usuário")
+            st.text_input("Senha", type="password", key="campo_senha", placeholder="Digite sua senha")
+            botao_entrar = st.form_submit_button("Entrar no Sistema", use_container_width=True, type="primary")
+            
+            if botao_entrar:
+                realizar_login()
+                
+    # Interrompe a execução aqui para NÃO carregar a sidebar nem o restante do sistema
+    st.stop()
+
+# -------------------------------------------------------------
+# 5. BOTÃO DE LOGOUT NA BARRA LATERAL (Para quando estiver logado)
+# -------------------------------------------------------------
+# Adicione este trecho na sua barra lateral (st.sidebar):
+# with st.sidebar:
+#     if st.button("🚪 Sair", use_container_width=True):
+#         st.session_state["autenticado"] = False
+#         st.rerun()
+
+
+
 st.set_page_config(page_title="Água Nova", page_icon="💧", layout="wide")
 banco.iniciar()
 

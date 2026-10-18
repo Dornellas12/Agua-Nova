@@ -24,15 +24,27 @@ CSS = """
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap');
 html, body, [class*="css"], .stApp { font-family: 'Nunito', 'Segoe UI', sans-serif; }
-.block-container { padding-top: 1.2rem; max-width: 1250px; }
+
+/* CORREÇÃO 1: Adicionado '!important' e espaço seguro para o topo não cortar no Streamlit Cloud */
+.block-container { padding-top: 2rem !important; max-width: 1250px; }
+
 #MainMenu, footer { visibility: hidden; }
 
 [data-testid="stSidebar"] { background: linear-gradient(185deg, #063B57 0%, #0E7FA8 100%); }
 [data-testid="stSidebar"] * { color: #fff !important; }
-[data-testid="stSidebar"] label[data-baseweb="radio"] { padding: .55rem .8rem; border-radius: 10px; width: 100%; transition: background .15s; }
-[data-testid="stSidebar"] label[data-baseweb="radio"]:hover { background: rgba(255,255,255,.15); }
-[data-testid="stSidebar"] label[data-baseweb="radio"] > div:first-child { display: none; }
-[data-testid="stSidebar"] label[data-baseweb="radio"]:has(input:checked) { background: rgba(255,255,255,.24); font-weight: 800; }
+
+/* CORREÇÃO 2: Seletores refinados para garantir o formato de pílula perfeito no menu lateral */
+[data-testid="stSidebar"] div[role="radiogroup"] > label { 
+    padding: .55rem .8rem; 
+    border-radius: 10px; 
+    width: 100%; 
+    transition: background .15s; 
+    cursor: pointer;
+}
+[data-testid="stSidebar"] div[role="radiogroup"] > label:hover { background: rgba(255,255,255,.15); }
+[data-testid="stSidebar"] div[role="radiogroup"] label > div:first-child { display: none !important; }
+[data-testid="stSidebar"] div[role="radiogroup"] label:has(input:checked) { background: rgba(255,255,255,.24); font-weight: 800; }
+
 .marca { display:flex; gap:.7rem; align-items:center; padding:.4rem .4rem 1.2rem; }
 .marca b { font-size:1.25rem; line-height:1.1; font-weight:800; }
 .marca small { opacity:.8; }

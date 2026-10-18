@@ -83,23 +83,38 @@ CSS = """
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap');
 html, body, [class*="css"], .stApp { font-family: 'Nunito', 'Segoe UI', sans-serif; }
+
+/* Espaço superior para o banner não ser cortado na nuvem */
 .block-container { padding-top: 3.5rem !important; max-width: 1250px; }
+
 #MainMenu, footer { visibility: hidden; }
 
 [data-testid="stSidebar"] { background: linear-gradient(185deg, #063B57 0%, #0E7FA8 100%); }
 [data-testid="stSidebar"] * { color: #fff !important; }
 
-/* REGRA DOS BOTÕES LATERAIS COM A FONTE MAIOR */
-[data-testid="stSidebar"] label[data-baseweb="radio"] { padding: .65rem .9rem; border-radius: 10px; width: 100%; transition: background .15s; }
-[data-testid="stSidebar"] label[data-baseweb="radio"]:hover { background: rgba(255,255,255,.15); }
-[data-testid="stSidebar"] label[data-baseweb="radio"] > div:first-child { display: none; }
-[data-testid="stSidebar"] label[data-baseweb="radio"]:has(input:checked) { background: rgba(255,255,255,.24); font-weight: 800; }
+/* 1. Esconde as bolinhas do radio na barra lateral de forma definitiva */
+[data-testid="stSidebar"] [data-testid="stRadio"] div[role="radiogroup"] label > div:first-child {
+    display: none !important;
+}
 
-/* AUMENTA A FONTE DOS TEXTOS DO MENU LATERAL */
-[data-testid="stSidebar"] label[data-baseweb="radio"] span, 
-[data-testid="stSidebar"] label[data-baseweb="radio"] p { 
-    font-size: 1.15rem !important; 
-    font-weight: 700 !important; 
+/* 2. Formatação em pílula dos botões laterais */
+[data-testid="stSidebar"] [data-testid="stRadio"] div[role="radiogroup"] label {
+    padding: .65rem .9rem !important;
+    border-radius: 10px !important;
+    width: 100% !important;
+    transition: background .15s !important;
+    cursor: pointer !important;
+}
+
+[data-testid="stSidebar"] [data-testid="stRadio"] div[role="radiogroup"] label:hover {
+    background: rgba(255,255,255,.15) !important;
+}
+
+/* 3. Aumenta o tamanho da fonte e o destaque do texto no menu */
+[data-testid="stSidebar"] [data-testid="stRadio"] div[role="radiogroup"] label [data-testid="stMarkdownContainer"] p {
+    font-size: 1.15rem !important;
+    font-weight: 700 !important;
+    margin: 0 !important;
 }
 
 .marca { display:flex; gap:.7rem; align-items:center; padding:.4rem .4rem 1.2rem; }
@@ -135,6 +150,7 @@ div[data-baseweb="input"], div[data-baseweb="select"] > div, div[data-baseweb="t
 div[data-baseweb="input"] input, div[data-baseweb="textarea"] textarea { background:transparent !important; }
 </style>
 """
+
 
 # ---------- componentes visuais ----------
 def card(rotulo, valor, sub="", cor=""):
